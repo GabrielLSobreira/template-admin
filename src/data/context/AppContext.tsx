@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 
 type Tema = 'dark' | '';
 
@@ -7,9 +7,13 @@ interface AppContextProps {
   alternarTema?: () => void;
 }
 
+interface AppProviderProps {
+  children: ReactNode;
+}
+
 const AppContext = createContext<AppContextProps>({});
 
-export const AppProvider = (props: any) => {
+export const AppProvider = ({ children }: AppProviderProps) => {
   const [tema, setTema] = useState<Tema>('dark');
 
   const alternarTema = () => {
@@ -22,7 +26,7 @@ export const AppProvider = (props: any) => {
         alternarTema,
       }}
     >
-      {props.children}
+      {children}
     </AppContext.Provider>
   );
 };
