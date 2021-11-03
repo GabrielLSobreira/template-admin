@@ -1,9 +1,9 @@
-import { Layout } from "../components/template/Layout";
+import { Layout } from '../components/template/Layout';
 
 const Home = () => {
   return (
-    <Layout title="Página Inicial" subtitle="Início do projeto">
-      <h3>Conteúdo!</h3>
+    <Layout title="Página Inicial" subtitle="Template Admin">
+      <h3>Conteúdo!!!</h3>
     </Layout>
   );
 };
