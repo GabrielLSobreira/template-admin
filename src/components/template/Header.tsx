@@ -1,4 +1,6 @@
-import { Title } from "./Title";
+import useAppData from '../../data/hook/useAppData';
+import { SwitchButton } from './SwitchButton';
+import { Title } from './Title';
 
 interface HeaderProps {
   title: string;
@@ -6,9 +8,14 @@ interface HeaderProps {
 }
 
 export const Header = (props: HeaderProps) => {
+  const { tema, alternarTema } = useAppData();
+
   return (
-    <div>
+    <div className={`flex`}>
       <Title title={props.title} subtitle={props.subtitle} />
+      <div className={`flex flex-grow justify-end`}>
+        <SwitchButton tema={tema} alternarTema={alternarTema} />
+      </div>
     </div>
   );
 };
