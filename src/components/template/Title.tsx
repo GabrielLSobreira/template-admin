@@ -7,13 +7,13 @@ export const Title = (props: TitleProps) => {
   return (
     <div>
       <h1
-        className={`
+        className={` font-black text-3xl text-gray-900
       `}
       >
         {props.title}
       </h1>
       <h2
-        className={`
+        className={` font-light text-sm text-gray-600
       `}
       >
         {props.subtitle}
