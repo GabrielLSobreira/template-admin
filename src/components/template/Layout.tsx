@@ -10,10 +10,16 @@ interface LayoutProps {
 
 export const Layout = (props: LayoutProps) => {
   return (
-    <div>
+    <div className={`flex h-screen w-screen`}>
       <Sidebar />
-      <Header title={props.title} subtitle={props.subtitle} />
-      <Content>{props.children}</Content>
+      <div
+        className={`
+      flex flex-col w-full p-7 bg-gray-300
+      `}
+      >
+        <Header title={props.title} subtitle={props.subtitle} />
+        <Content>{props.children}</Content>
+      </div>
     </div>
   );
 };
