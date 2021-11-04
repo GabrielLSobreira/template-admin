@@ -6,7 +6,7 @@ const Perfil = () => {
       title="Perfil do usuário"
       subtitle="Administre as suas informações de usuário!"
     >
-      <h1>Perfil do usuário</h1>
+      <h1>Perfil do usuário!</h1>
     </Layout>
   );
 };

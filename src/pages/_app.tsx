@@ -3,14 +3,21 @@ import type { AppProps } from 'next/app';
 import 'tailwindcss/tailwind.css';
 import { AppProvider } from '../data/context/AppContext';
 import { AuthProvider } from '../data/context/AuthContext';
+import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <AppProvider>
-        <Component {...pageProps} />
-      </AppProvider>
-    </AuthProvider>
+    <>
+      <Head>
+        <title>Template Admin</title>
+        <meta name="description" content="Template Admin" />
+      </Head>
+      <AuthProvider>
+        <AppProvider>
+          <Component {...pageProps} />
+        </AppProvider>
+      </AuthProvider>
+    </>
   );
 }
 

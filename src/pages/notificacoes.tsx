@@ -6,7 +6,7 @@ const Notificacoes = () => {
       title="Notificações"
       subtitle="Aqui você irá gerenciar as suas notificações."
     >
-      <h3>Conteúdo!!!</h3>
+      <h3>Gerenciar notificações!</h3>
     </Layout>
   );
 };

@@ -6,7 +6,7 @@ const Ajustes = () => {
       title="Ajustes e Configurações"
       subtitle="Personalize o sistema por aqui."
     >
-      <h3>Conteúdo!</h3>
+      <h3>Personalização do sistema!</h3>
     </Layout>
   );
 };
