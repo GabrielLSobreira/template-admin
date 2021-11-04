@@ -1,28 +1,34 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { AuthInput } from '../components/auth/AuthInput';
 import { ErrorIcon } from '../components/icons';
 import useAuth from '../data/hook/useAuth';
 
 const Auth = () => {
-  const { user, loginGoogle } = useAuth();
+  const { register, login, loginGoogle } = useAuth();
   const [mode, setMode] = useState<'login' | 'cadastro'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<any | null>(null);
 
-  const showError = (msg: string, time: number = 2) => {
+  const showError = (msg: string, time: number = 3) => {
     setError(msg);
     setTimeout(() => setError(null), time * 1000);
   };
 
-  const handleSubmit = () => {
-    if (mode === 'login') {
-      console.log('login');
-      showError('Ocorreu um erro no login');
-    } else {
-      showError('Ocorreu um erro no cadastro');
-      console.log('cadastrar');
+  const handleSubmit = async () => {
+    try {
+      if (mode === 'login') {
+        await login!(email, password);
+      } else {
+        await register!(email, password);
+      }
+    } catch (e: any) {
+      if (mode === 'login') {
+        showError('E-mail ou senha estão incorretos!');
+      } else {
+        showError(e?.message ?? 'Ocorreu um erro inesperado!');
+      }
     }
   };
   return (
