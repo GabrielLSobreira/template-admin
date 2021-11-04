@@ -1,9 +1,7 @@
-import { createContext, ReactNode, useState } from 'react';
-
-type Tema = 'dark' | '';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
 interface AppContextProps {
-  tema?: Tema;
+  tema?: string;
   alternarTema?: () => void;
 }
 
@@ -14,10 +12,17 @@ interface AppProviderProps {
 const AppContext = createContext<AppContextProps>({});
 
 export const AppProvider = ({ children }: AppProviderProps) => {
-  const [tema, setTema] = useState<Tema>('dark');
+  const [tema, setTema] = useState('dark');
+
+  useEffect(() => {
+    const temaSalvo = localStorage.getItem('tema');
+    setTema(temaSalvo!);
+  }, []);
 
   const alternarTema = () => {
-    setTema(tema === '' ? 'dark' : '');
+    const novoTema = tema === '' ? 'dark' : '';
+    setTema(novoTema);
+    localStorage.setItem('tema', novoTema);
   };
   return (
     <AppContext.Provider
