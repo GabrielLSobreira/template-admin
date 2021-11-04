@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 interface AuthContextProps {
   user?: User;
   loginGoogle?: () => Promise<void>;
+  logout?: () => Promise<void>;
 }
 
 interface AuthProviderProps {
@@ -42,8 +43,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cancel = firebase.auth().onIdTokenChanged(configureSession);
-    return () => cancel();
+    if (Cookies.get('admin-template-auth')) {
+      const cancel = firebase.auth().onIdTokenChanged(configureSession);
+      return () => cancel();
+    }
   }, []);
 
   const configureSession = async (firebaseUser: any) => {
@@ -73,8 +76,18 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      setLoading(true);
+      await firebase.auth().signOut();
+      await configureSession(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loginGoogle }}>
+    <AuthContext.Provider value={{ user, loginGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );
