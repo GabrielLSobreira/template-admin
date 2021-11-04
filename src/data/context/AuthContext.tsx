@@ -8,6 +8,7 @@ interface AuthContextProps {
   user?: User;
   loginGoogle?: () => Promise<void>;
   logout?: () => Promise<void>;
+  loading?: boolean;
 }
 
 interface AuthProviderProps {
@@ -46,6 +47,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     if (Cookies.get('admin-template-auth')) {
       const cancel = firebase.auth().onIdTokenChanged(configureSession);
       return () => cancel();
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -57,6 +60,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setLoading(false);
       return user.email;
     } else {
+      setUser(undefined);
       manageCookie(false);
       setLoading(false);
       return false;
@@ -87,7 +91,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loginGoogle, logout }}>
+    <AuthContext.Provider value={{ user, loginGoogle, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
